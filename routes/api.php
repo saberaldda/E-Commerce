@@ -36,8 +36,8 @@ Route::middleware('auth:sanctum')
         Route::controller(UsersController::class)
         ->middleware('auth:sanctum')
         ->group(function () {
-            Route::put('/users/trash/{user?}', 'restore');
-            Route::delete('/users/trash/{user?}', 'forceDelete');
+            // Route::put('/users/trash/{user?}', 'restore');
+            // Route::delete('/users/trash/{user?}', 'forceDelete');
             Route::apiResource('/users', UsersController::class);
         });
 
@@ -45,9 +45,9 @@ Route::middleware('auth:sanctum')
         Route::controller(CategoriesController::class)
         ->middleware('auth:sanctum')
         ->group(function () {
-            Route::put('/categories/trash/{category?}', 'restore');
-            Route::delete('/categories/trash/{category?}', 'forceDelete');
-            // Route::post('/categories/status/{category}', 'changeStatus');
+            // Route::put('/categories/trash/{category?}', 'restore');
+            // Route::delete('/categories/trash/{category?}', 'forceDelete');
+            Route::post('/categories/status/{category}', 'changeStatus');
             Route::apiResource('/categories', CategoriesController::class);
         });
 
@@ -55,9 +55,9 @@ Route::middleware('auth:sanctum')
         Route::controller(ProductsController::class)
         ->middleware('auth:sanctum')
         ->group(function () {
-            Route::put('/products/trash/{product?}', 'restore');
-            Route::delete('/products/trash/{product?}', 'forceDelete');
-            // Route::post('/products/status/{category}', 'changeStatus');
+            // Route::put('/products/trash/{product?}', 'restore');
+            // Route::delete('/products/trash/{product?}', 'forceDelete');
+            Route::post('/products/status/{category}', 'changeStatus');
             Route::apiResource('/products', ProductsController::class);
         });
 

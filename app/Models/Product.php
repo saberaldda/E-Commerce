@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\ProductsObserver;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,6 +36,11 @@ class Product extends Model
         static::observe(ProductsObserver::class);
     }
 
+    public function scopeActive(Builder $builder)
+    {
+        $builder->where('status', '=', 'active');
+    }
+
     public static function validateRules()
     {
         return [
@@ -52,7 +58,7 @@ class Product extends Model
     public function getImageUrlAttribute()
     {
         if (!$this->image_path) {
-            return asset('assets/admin/img/tds.png');
+            return asset(config('app.logo'));
         }
         if (stripos($this->image_path, 'http') === 0) {
             return $this->image_path;
