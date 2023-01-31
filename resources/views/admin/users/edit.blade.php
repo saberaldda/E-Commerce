@@ -14,7 +14,7 @@
 
     <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('put')
+    {{-- @method('put') --}}
     
     @include('admin.users._form', [
         'button' => 'Update'

@@ -43,4 +43,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function validateRules()
+    {
+        return [
+            'name'                  => 'required|max:255',
+            'image'                 => 'nullable|image',
+            'email'                 => 'required|email',
+            'type'                  => 'required',
+            'password'              => 'nullable|min:8',
+            'password_confirmation' => 'nullable|same:password',
+            'country'               => 'nullable',
+        ];
+    }
 }

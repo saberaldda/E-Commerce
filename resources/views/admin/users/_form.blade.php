@@ -48,7 +48,7 @@
     @enderror
 </div>
 
-<div class="form-group">
+{{-- <div class="form-group">
     <label for="Country">{{ __('Country') }}</label>
     <select name="country_id" id="country" class="form-control @error('country') is-invalid @enderror">
         <option value="">{{ __('Choose Country') }}</option>
@@ -61,12 +61,18 @@
     @error('country')
         <p class="invalid-feedback">{{ __($message) }}</p>
     @enderror
-</div>
+</div> --}}
 
 <div class="form-group">
     <label for="status">{{ __('User Type') }}</label>
     <div>
+        @foreach (\App\Models\User::TYPES as $type)
         <div class="form-check @error('type') is-invalid @enderror">
+            <input class="form-check-input" type="radio" name="type" id="{{ $type }}" value="{{ $type }}" @if(old('type', $user->type) == $type) checked @endif>
+            <label class="form-check-label" for="flexRadioDefault1"> {{ ucfirst(__($type)) }} </label>
+        </div>
+        @endforeach
+        {{-- <div class="form-check @error('type') is-invalid @enderror">
             <input class="form-check-input" type="radio" name="type" id="super-admin" value="super-admin" @if(old('type', $user->type) == 'super-admin') checked @endif>
             <label class="form-check-label" for="flexRadioDefault1"> {{ ucfirst(__('Super-Admin')) }} </label>
         </div>
@@ -77,7 +83,7 @@
         <div class="form-check">
             <input class="form-check-input" type="radio" name="type" id="user" value="user" @if(old('type', $user->type) == 'user') checked @endif>
             <label class="form-check-label" for="flexRadioDefault2"> {{ ucfirst(__('User')) }} </label>
-        </div>
+        </div> --}}
     </div>
     @error('type')
         <p class="text-danger">{{ __($message) }}</p>

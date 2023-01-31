@@ -14,7 +14,7 @@
 
     <form action="{{ route('categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('put')
+        {{-- @method('put') --}}
         {{-- <input type="hidden" name="_method" value="put"> --}}
         
         @include('admin.categories._form', [

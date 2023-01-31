@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -28,7 +29,7 @@ class UsersController extends Controller
             $query->where('email', 'LIKE', "%{$email}%");
         }
 
-        $users = $query->paginate();
+        $users = $query->orderBy('type')->paginate();
         // dd($users);
 
         return view('admin.users.index', [
@@ -67,7 +68,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        dd('show user '.$user->name.' is work');
     }
 
     /**
@@ -78,7 +79,11 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', [
+            'title'     => __('Edit User'),
+            'user'      => $user,
+            // 'countries' => $countries
+        ]);
     }
 
     /**
@@ -90,7 +95,21 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate($user->validateRules());
+
+        if ($request->post('password')) {
+            $request->merge([
+                'password'              => Hash::make($request->post('password')),
+                'password_confirmation' => Hash::make($request->post('password_confirmation')),
+                'country_id'            => $request->post('country'),
+            ]);
+        } else
+            $request->merge(['password' => $user->password,]);
+
+        $user->update($request->all());
+
+        return redirect()->route('users.index')
+        ->with('success', __('app.users_update'));
     }
 
     /**
@@ -101,6 +120,9 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('users.index')
+            ->with('success', __('app.users_delete', ['name' => $user->name]));
     }
 }

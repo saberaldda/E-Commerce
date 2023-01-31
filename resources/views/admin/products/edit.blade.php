@@ -14,7 +14,7 @@
 
     <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('put')
+        {{-- @method('put') --}}
         
         @include('admin.products._form', [
             'button' => 'Update'

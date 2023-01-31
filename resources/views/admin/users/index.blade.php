@@ -70,7 +70,7 @@
                         {{-- @can('delete', $user) --}}
                         <form action="{{ route('users.destroy', $user->id) }}" method="post">
                             @csrf
-                            @method('delete')
+                            {{-- @method('delete') --}}
                             <x-popup-window :process="'Delete'" :color="'danger'" :id="$loop->iteration" :icon="'fa-trash'"/>
                         </form>
                         {{-- @endcan --}}

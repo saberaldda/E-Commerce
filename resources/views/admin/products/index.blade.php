@@ -72,7 +72,7 @@
                         {{-- @can('delete', $product) --}}
                         <form action="{{ route('products.destroy', $product->id) }}" method="post">
                             @csrf
-                            @method('delete')
+                            {{-- @method('delete') --}}
                             <x-popup-window :process="'Delete'" :color="'danger'" :id="$loop->iteration" :icon="'fa-trash'"/>
                         </form>
                         {{-- @endcan --}}

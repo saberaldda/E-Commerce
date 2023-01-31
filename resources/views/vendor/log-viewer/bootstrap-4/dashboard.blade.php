@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-header mb-4">
-        <h1>@lang('Dashboard')</h1>
+        <h1>@lang('Logs Summary')</h1>
     </div>
 
     <div class="row">

@@ -1,8 +1,8 @@
 <?php
 /**
- * @var  Arcanedev\LogViewer\Entities\Log            $log
- * @var  Illuminate\Pagination\LengthAwarePaginator  $entries
- * @var  string|null                                 $query
+ * @var  Arcanedev\LogViewer\Entities\Log                                                                     $log
+ * @var  Illuminate\Pagination\LengthAwarePaginator|array<string|int, Arcanedev\LogViewer\Entities\LogEntry>  $entries
+ * @var  string|null                                                                                          $query
  */
 ?>
 
@@ -102,7 +102,8 @@
             {{-- Log Entries --}}
             <div class="card mb-4">
                 @if ($entries->hasPages())
-                    <div class="card-header">
+                    <div class=" card-header">
+                        <span>{!! $entries->appends(compact('query'))->render() !!}</span>
                         <span class="badge badge-info float-right">
                             {{ __('Page :current of :last', ['current' => $entries->currentPage(), 'last' => $entries->lastPage()]) }}
                         </span>
@@ -122,8 +123,8 @@
                         </thead>
                         <tbody>
                             @forelse($entries as $key => $entry)
-                                <?php /** @var  Arcanedev\LogViewer\Entities\LogEntry  $entry */ ?>
-                                <tr>
+                                <tr data-toggle="collapse"
+                                href="#log-context-{{ $key }}" aria-expanded="false" aria-controls="log-context-{{ $key }}">
                                     <td>
                                         <span class="badge badge-env">{{ $entry->env }}</span>
                                     </td>

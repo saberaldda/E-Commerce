@@ -18,9 +18,13 @@ class AccessTokensController extends Controller
         $request->validate([
             'username' => ['required'],
             'password' => ['required'],
-            'device_name' => ['required'],
+            'device_name' => ['nullable'],
             'abilities' => ['nullable'],
         ]);
+
+        if (!$request->device_name) {
+            $request->device_name = $request->header('User-Agent');
+        }
 
         $user = User::where('email', $request->username)
             // ->orWhere('mobile', $request->username)
@@ -55,6 +59,7 @@ class AccessTokensController extends Controller
             'status'    => 201,
             'data'      => [
                 'token' => $token->plainTextToken,
+                'device_name'  => $token->accessToken->name,
                 'user' => $user,
             ],
         ],201);
