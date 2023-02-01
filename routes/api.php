@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')
             // Route::delete('/users/trash/{user?}', 'forceDelete');
             // Route::apiResource('/users', UsersController::class);
             Route::get('users', 'index')->name('users.index');
-            Route::post('users/store', 'store')->name('users.store');
+            Route::post('users', 'store')->name('users.store');
             Route::get('users/{user}', 'show')->name('users.show');
             Route::post('users/{user}/update', 'update')->name('users.update');
             Route::post('users/{user}/delete', 'destroy')->name('users.destroy');
@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')
             Route::post('/categories/status/{category}', 'changeStatus');
             // Route::apiResource('/categories', CategoriesController::class);
             Route::get('categories', 'index')->name('categories.index');
-            Route::post('categories/store', 'store')->name('categories.store');
+            Route::post('categories', 'store')->name('categories.store');
             Route::get('categories/{user}', 'show')->name('categories.show');
             Route::post('categories/{user}/update', 'update')->name('categories.update');
             Route::post('categories/{user}/delete', 'destroy')->name('categories.destroy');
@@ -70,7 +70,7 @@ Route::middleware('auth:sanctum')
             Route::post('/products/status/{product}', 'changeStatus');
             // Route::apiResource('/products', ProductsController::class);
             Route::get('products', 'index')->name('products.index');
-            Route::post('products/store', 'store')->name('products.store');
+            Route::post('products', 'store')->name('products.store');
             Route::get('products/{user}', 'show')->name('products.show');
             Route::post('products/{user}/update', 'update')->name('products.update');
             Route::post('products/{user}/delete', 'destroy')->name('products.destroy');

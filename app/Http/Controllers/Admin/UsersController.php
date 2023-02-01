@@ -46,7 +46,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create', [
+            'user' => new User(),
+        ]);
     }
 
     /**
@@ -57,7 +59,32 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(User::validateRules());
+
+        // sheck if image in request
+        // if ($request->hasFile('image')) {
+        //     $file = $request->file('image'); // UplodedFile Object
+
+        //     $image_path = $file->storeAs('uploads',
+        //         time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName()),
+        //         'public');
+            
+        //     // merge image to the request
+        //     $request->merge([
+        //         'profile_photo_path' => $image_path,
+        //     ]);
+        // }
+
+        $request->merge([
+            'password' => Hash::make($request->post('password')),
+            'password_confirmation' => Hash::make($request->post('password_confirmation')),
+            // 'country_id' => $request->post('country'),
+        ]);
+        
+        $user = User::create($request->all());
+
+        return redirect()->route('users.index')
+            ->with('success', __('app.users_store'));
     }
 
     /**

@@ -56,7 +56,7 @@ class CategoriesController extends Controller
 
         $category = new Category();
 
-        return view('admin.Categories.create', [
+        return view('admin.categories.create', [
             'title'     => 'Create Category',
             'category'  => $category,
         ]);
